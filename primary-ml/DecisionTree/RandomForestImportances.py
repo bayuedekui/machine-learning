@@ -33,14 +33,20 @@ def oob_importances():
 
     rf = RandomForestClassifier(n_estimators=200, oob_score=True)
     rf.fit(x, y)
-    print("原样数据准确率==》%f" % rf.oob_score_)
+    score = rf.oob_score_
+    print("原样数据准确率==》%f" % score)
 
     for i in range(len(df.columns) - 1):
         tmp_df = copy.deepcopy(df)
-        tmp_df[df.columns[i + 1]] = 1.1
+        shuffe_df = copy.deepcopy(df)
+        shuffe_df.sample(1)
+        # 打乱某一列数据
+        # tmp_df[df.columns[i + 1]] = shuffe_df[df.columns[i + 1]]
+        tmp_df[df.columns[i + 1]] = 0
         tmp_x = tmp_df.iloc[:, 1:]
         rf.fit(tmp_x, y)
-        print("%s取随机值准确率==》%f" % (df.columns[i + 1], rf.oob_score_))
+        tmp_score = rf.oob_score_
+        print("%s取随机值准确率误差==》%f" % (df.columns[i + 1], score - tmp_score))
 
 
 def use_oob(x_train, y_train, features_name, features_imp, select_num, rf):
