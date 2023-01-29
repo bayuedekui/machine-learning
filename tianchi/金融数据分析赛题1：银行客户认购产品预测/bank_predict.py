@@ -39,6 +39,11 @@ def get_data():
     # print(y_predict_id[i])
     # print(y_predict[i])
     res = pd.DataFrame(arr, columns=['id', 'subscribe'])
+    res['subscribe'] = res.iloc[:, -1].apply(lambda x: 'yes' if x == 1 else 'no')
+
+    res.to_csv(
+        'D:\\EEEEEEEEEEEEEEEEEEEEEEEEEEEE\\PythonProjects\\machine-learning\\tianchi\\金融数据分析赛题1：银行客户认购产品预测\\input\submission.csv',
+        index=False)
 
     print(res)
 
