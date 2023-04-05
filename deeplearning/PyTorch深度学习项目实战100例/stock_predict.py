@@ -12,8 +12,10 @@ def get_data():
 
     df = pro.daily(ts_code='000001.SZ', start_date='20130101', end_date='20230201')
 
+    df = pro.index_classify(level='L1', src='SW2021')
+
     print(df.info())
-    df.to_csv('inputs/stock_info.csv', index=False)
+    # df.to_csv('inputs/stock_info.csv', index=False)
 
 
 if __name__ == '__main__':
